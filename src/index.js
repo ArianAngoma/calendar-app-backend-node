@@ -8,11 +8,8 @@ const app = express();
 app.use(express.static('src/public'));
 
 /* Rutas */
-app.get('/', (req, res) => {
-    res.json({
-        ok: true
-    });
-});
+/* Rutas para la autenticación */
+app.use('/api/auth', require('./routes/auth'));
 
 /* Escuchar peticiones */
 app.listen(process.env.PORT, () => {
