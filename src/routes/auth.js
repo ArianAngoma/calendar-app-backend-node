@@ -5,13 +5,19 @@
 
 const {Router} = require('express');
 
+/* Importaciones propias */
+const {registerUser, loginUser, renewToken} = require('../controllers/auth');
+
 /* Configuración del router */
 const router = Router();
 
-router.get('/', (req, res) => {
-    res.json({
-        ok: true
-    });
-});
+/* Crear nuevo usuario */
+router.post('/register', registerUser);
+
+/* SignIn del usuario */
+router.post('/', loginUser);
+
+/* Renovar Token de usuario */
+router.get('/renew-token', renewToken);
 
 module.exports = router;
