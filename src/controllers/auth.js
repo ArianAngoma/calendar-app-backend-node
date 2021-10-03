@@ -1,14 +1,6 @@
-const {validationResult} = require('express-validator');
-
+/* SignUp del usuario */
 const registerUser = (req, res) => {
     const {name, email, password, color} = req.body;
-
-    /* Manejo de errores */
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({
-        ok: false,
-        errors: errors.mapped()
-    });
 
     res.status(201).json({
         ok: true,
@@ -17,15 +9,9 @@ const registerUser = (req, res) => {
     });
 }
 
+/* SignIn del usuario */
 const loginUser = (req, res) => {
     const {email, password} = req.body;
-
-    /* Manejo de errores */
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) return res.status(400).json({
-        ok: false,
-        errors: errors.mapped()
-    });
 
     res.status(201).json({
         ok: true,
@@ -34,6 +20,7 @@ const loginUser = (req, res) => {
     });
 }
 
+/* Renovar Token */
 const renewToken = (req, res) => {
     res.json({
         ok: true,
