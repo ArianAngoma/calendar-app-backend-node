@@ -1,7 +1,16 @@
+const {validationResult} = require('express-validator');
+
 const registerUser = (req, res) => {
     const {name, email, password, color} = req.body;
 
-    res.json({
+    /* Manejo de errores */
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({
+        ok: false,
+        errors: errors.mapped()
+    });
+
+    res.status(201).json({
         ok: true,
         msg: 'Register',
         name, email, password, color
@@ -11,7 +20,14 @@ const registerUser = (req, res) => {
 const loginUser = (req, res) => {
     const {email, password} = req.body;
 
-    res.json({
+    /* Manejo de errores */
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({
+        ok: false,
+        errors: errors.mapped()
+    });
+
+    res.status(201).json({
         ok: true,
         msg: 'Login',
         email, password
