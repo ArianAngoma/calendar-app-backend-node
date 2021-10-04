@@ -1,4 +1,7 @@
 const express = require('express');
+const cors = require('cors');
+
+/* Importaciones propias */
 const {dbConnection} = require('./database/config');
 require('dotenv').config();
 
@@ -7,6 +10,9 @@ const app = express();
 
 /* DB */
 dbConnection();
+
+/* CORS */
+app.use(cors());
 
 /* Directorio público */
 app.use(express.static('src/public'));
