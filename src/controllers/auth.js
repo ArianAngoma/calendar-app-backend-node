@@ -8,11 +8,15 @@ const registerUser = async (req, res) => {
     /* Guardar nuevo usuario */
     try {
         const user = new User({name, email, password, color});
-        await user.save()
+        await user.save();
 
         res.status(201).json({
             ok: true,
-            msg: 'Register'
+            user: {
+                uid: user.id,
+                name: user.name,
+                color: user.color
+            }
         });
     } catch (e) {
         console.log(e);
@@ -21,7 +25,6 @@ const registerUser = async (req, res) => {
             msg: 'Hable con el Administrador'
         });
     }
-
 }
 
 /* SignIn del usuario */

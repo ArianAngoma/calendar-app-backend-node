@@ -9,6 +9,7 @@ const {check} = require('express-validator');
 /* Importaciones propias */
 const {registerUser, loginUser, renewToken} = require('../controllers/auth');
 const {validateFields} = require('../middlewares/validate-fields');
+const {emailExists} = require('../helpers/db-validators');
 
 /* Configuración del router */
 const router = Router();
@@ -17,6 +18,7 @@ const router = Router();
 router.post('/register', [
     check('name', 'El nombre es obligatorio').notEmpty(),
     check('email', 'El email es obligatorio').isEmail(),
+    check('email').custom(emailExists),
     check('password', 'El password debe de ser de 6 caracteres').isLength({min: 6}),
     check('color', 'El color debe de ser válido').isHexColor(),
     validateFields
