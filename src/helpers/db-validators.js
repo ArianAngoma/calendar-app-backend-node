@@ -13,7 +13,7 @@ const eventExistByIdAndUserIsToken = async (id, {req}) => {
     const existsEvent = await Event.findById(id);
 
     if (!existsEvent) throw new Error(`El evento con ${id} no existe`);
-    if (existsEvent.user.toString() !== req.user.id) throw new Error(`No tiene privilegio de editar el evento con id ${id}`);
+    if (existsEvent.user.toString() !== req.user.id) throw new Error(`No tiene privilegio de editar/eliminar el evento con id ${id}`);
 }
 
 module.exports = {

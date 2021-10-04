@@ -3,12 +3,19 @@ const Event = require('../models/Event');
 
 /* Obtener eventos */
 const getEvents = async (req, res) => {
-    const events = await Event.find().populate('user', ['name', 'color']);
-
-    res.status(201).json({
-        ok: true,
-        events
-    });
+    try {
+        const events = await Event.find().populate('user', ['name', 'color']);
+        res.status(201).json({
+            ok: true,
+            events
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el Administrador'
+        });
+    }
 }
 
 /* Crear evento */
@@ -57,11 +64,24 @@ const updateEvent = async (req, res) => {
 }
 
 /* Eliminar evento */
-const deleteEvent = (req, res) => {
-    res.status(201).json({
-        ok: true,
-        msg: 'Eliminar evento'
-    });
+const deleteEvent = async (req, res) => {
+    const {id} = req.params;
+
+    try {
+        // Físicamente borrado
+        const event = await Event.findByIdAndDelete(id);
+        // console.log(event);
+
+        res.status(201).json({
+            ok: true
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el Administrador'
+        });
+    }
 }
 
 module.exports = {
