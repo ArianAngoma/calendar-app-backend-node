@@ -11,6 +11,7 @@ const {getEvents, createEvent, updateEvent, deleteEvent} = require('../controlle
 const {validateFields} = require('../middlewares/validate-fields');
 const {validateJwt} = require('../middlewares/validate-jwt');
 const {isDate} = require('../helpers/is-date');
+const {eventExistByIdAndUserIsToken} = require('../helpers/db-validators');
 
 /* Configuración del router */
 const router = Router();
@@ -19,7 +20,7 @@ const router = Router();
 router.use(validateJwt);
 
 /* Obtener eventos */
-router.get('/', [], getEvents);
+router.get('/', getEvents);
 
 /* Crear evento */
 router.post('/', [
@@ -30,7 +31,11 @@ router.post('/', [
 ], createEvent);
 
 /* Actualizar evento */
-router.put('/:id', [], updateEvent);
+router.put('/:id', [
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom(eventExistByIdAndUserIsToken),
+    validateFields
+], updateEvent);
 
 /* Eliminar evento */
 router.delete('/:id', [], deleteEvent);

@@ -34,11 +34,26 @@ const createEvent = async (req, res) => {
 }
 
 /* Actualizar evento */
-const updateEvent = (req, res) => {
-    res.status(201).json({
-        ok: true,
-        msg: 'Actualizar evento'
-    });
+const updateEvent = async (req, res) => {
+    const {id} = req.params;
+
+    const {user, ...data} = req.body;
+    data.user = req.user._id;
+
+    try {
+        const event = await Event.findByIdAndUpdate(id, data, {new: true});
+
+        res.status(201).json({
+            ok: true,
+            event
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el Administrador'
+        });
+    }
 }
 
 /* Eliminar evento */
