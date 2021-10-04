@@ -10,6 +10,7 @@ const {check} = require('express-validator');
 const {registerUser, loginUser, renewToken} = require('../controllers/auth');
 const {validateFields} = require('../middlewares/validate-fields');
 const {emailExists} = require('../helpers/db-validators');
+const {validateJwt} = require('../middlewares/validate-jwt');
 
 /* Configuración del router */
 const router = Router();
@@ -32,6 +33,6 @@ router.post('/', [
 ], loginUser);
 
 /* Renovar Token de usuario */
-router.get('/renew-token', renewToken);
+router.get('/renew-token', [validateJwt], renewToken);
 
 module.exports = router;
