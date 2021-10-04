@@ -8,6 +8,9 @@ const getEvents = (req, res) => {
 
 /* Crear evento */
 const createEvent = (req, res) => {
+    const {} = req.body;
+    console.log(req.body);
+
     res.status(201).json({
         ok: true,
         msg: 'Crear evento'
@@ -17,15 +20,15 @@ const createEvent = (req, res) => {
 /* Actualizar evento */
 const updateEvent = (req, res) => {
     res.status(201).json({
-       ok: true,
-       msg: 'Actualizar evento'
+        ok: true,
+        msg: 'Actualizar evento'
     });
 }
 
 /* Eliminar evento */
 const deleteEvent = (req, res) => {
     res.status(201).json({
-    ok: true,
+        ok: true,
         msg: 'Eliminar evento'
     });
 }
