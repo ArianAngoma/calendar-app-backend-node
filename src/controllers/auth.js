@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 /* Importaciones propias */
 const User = require('../models/User');
 
@@ -5,9 +7,15 @@ const User = require('../models/User');
 const registerUser = async (req, res) => {
     const {name, email, password, color} = req.body;
 
-    /* Guardar nuevo usuario */
+    /* Crear nuevo usuario */
     try {
         const user = new User({name, email, password, color});
+
+        /* Encriptar password */
+        const salt = bcrypt.genSaltSync();
+        user.password = bcrypt.hashSync(password, salt);
+
+        /* Guardar en DB */
         await user.save();
 
         res.status(201).json({
