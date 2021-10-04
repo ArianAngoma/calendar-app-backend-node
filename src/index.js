@@ -23,6 +23,8 @@ app.use(express.json());
 /* Rutas */
 /* Rutas para la autenticación */
 app.use('/api/auth', require('./routes/auth'));
+/* Rutas para los eventos */
+app.use('/api/events', require('./routes/events'));
 
 /* Escuchar peticiones */
 app.listen(process.env.PORT, () => {
