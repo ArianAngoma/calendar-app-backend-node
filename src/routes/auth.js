@@ -21,7 +21,6 @@ router.post('/register', [
     check('email', 'El email es obligatorio').isEmail(),
     check('email').custom(emailExists),
     check('password', 'El password debe de ser de 6 caracteres').isLength({min: 6}),
-    check('color', 'El color debe de ser válido').isHexColor(),
     validateFields
 ], registerUser);
 

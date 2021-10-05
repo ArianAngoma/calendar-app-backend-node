@@ -6,11 +6,11 @@ const {generateJWT} = require('../helpers/jwt');
 
 /* SignUp del usuario */
 const registerUser = async (req, res) => {
-    const {name, email, password, color} = req.body;
+    const {name, email, password} = req.body;
 
     /* Crear nuevo usuario */
     try {
-        const user = new User({name, email, password, color});
+        const user = new User({name, email, password});
 
         /* Encriptar password */
         const salt = bcrypt.genSaltSync();
@@ -27,7 +27,6 @@ const registerUser = async (req, res) => {
 
             uid: user.id,
             name: user.name,
-            color: user.color,
             token
 
         });
@@ -67,7 +66,6 @@ const loginUser = async (req, res) => {
 
             uid: user.id,
             name: user.name,
-            color: user.color,
             token
 
         });
@@ -82,7 +80,7 @@ const loginUser = async (req, res) => {
 
 /* Renovar Token */
 const renewToken = async (req, res) => {
-    const {_id, name, email, color} = req.user;
+    const {_id, name, email} = req.user;
 
     /* Generara nuevo JWT */
     const token = await generateJWT(_id);
@@ -92,7 +90,6 @@ const renewToken = async (req, res) => {
         uid: _id,
         name,
         email,
-        color,
         token
     });
 }
