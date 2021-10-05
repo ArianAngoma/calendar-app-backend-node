@@ -24,12 +24,12 @@ const registerUser = async (req, res) => {
 
         res.status(201).json({
             ok: true,
-            user: {
-                uid: user.id,
-                name: user.name,
-                color: user.color,
-                token
-            }
+
+            uid: user.id,
+            name: user.name,
+            color: user.color,
+            token
+
         });
     } catch (e) {
         console.log(e);
@@ -64,12 +64,12 @@ const loginUser = async (req, res) => {
 
         res.status(201).json({
             ok: true,
-            user: {
-                uid: user.id,
-                name: user.name,
-                color: user.color,
-                token
-            }
+
+            uid: user.id,
+            name: user.name,
+            color: user.color,
+            token
+
         });
     } catch (e) {
         console.log(e);
@@ -82,13 +82,17 @@ const loginUser = async (req, res) => {
 
 /* Renovar Token */
 const renewToken = async (req, res) => {
-    const {_id} = req.user;
+    const {_id, name, email, color} = req.user;
 
     /* Generara nuevo JWT */
     const token = await generateJWT(_id);
 
     res.json({
         ok: true,
+        uid: _id,
+        name,
+        email,
+        color,
         token
     });
 }
