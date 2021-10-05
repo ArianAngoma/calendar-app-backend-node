@@ -29,10 +29,11 @@ const validateJwt = async (req, res, next) => {
         next();
     } catch (e) {
         console.log(e);
-        return res.status(401).json({
+        /* return res.status(401).json({
             ok: false,
             msg: 'Toke no válido'
-        })
+        }); */
+        return null;
     }
 }
 
