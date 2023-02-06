@@ -27,6 +27,7 @@ router.post('/', [
     check('title', 'El título es obligatorio').notEmpty(),
     check('start', 'Fecha de inicio es obligatoria').custom(isDate),
     check('end', 'Fecha de finalización es obligatoria').custom(isDate),
+    check('bgColor', 'El color es obligatorio').notEmpty(),
     validateFields
 ], createEvent);
 

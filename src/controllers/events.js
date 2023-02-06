@@ -4,7 +4,7 @@ const Event = require('../models/Event');
 /* Obtener eventos */
 const getEvents = async (req, res) => {
     try {
-        const events = await Event.find().populate('user', ['name', 'color']);
+        const events = await Event.find().populate('user', ['name']);
         res.json({
             ok: true,
             events
@@ -24,7 +24,7 @@ const createEvent = async (req, res) => {
     const {_id} = req.user;
 
     try {
-        const event = new Event({title, notes, start, end, user: _id});
+        const event = new Event({title, notes, start, end, bgColor, user: _id});
         await event.save();
 
         res.status(201).json({
