@@ -24,7 +24,7 @@ const createEvent = async (req, res) => {
     const {_id} = req.user;
 
     try {
-        const event = new Event({title, notes, start, end, bgColor, user: _id});
+        const event = new Event({title, note, start, end, bgColor, user: _id});
         await event.save();
 
         res.status(201).json({
