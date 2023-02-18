@@ -20,7 +20,7 @@ const getEvents = async (req, res) => {
 
 /* Crear evento */
 const createEvent = async (req, res) => {
-    const {title, note, start, end} = req.body;
+    const {title, note, start, end, bgColor} = req.body;
     const {_id} = req.user;
 
     try {
